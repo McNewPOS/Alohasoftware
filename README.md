@@ -78,7 +78,7 @@ By accessing or using this software, you agree **not to redistribute or share cr
 ## 📬 Contact
 
 For password requests or access inquiries:  
-- **Discord DM:** *(newpos61)*  
+- **Discord DM:** *https://discordapp.com/users/714917321873031209*  
 - **Email:** [ian.linzey@icloud.com](mailto:ian.linzey@icloud.com)
 
 ---
