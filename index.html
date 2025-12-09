@@ -18,7 +18,7 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
-      color: #f8f8f8; /* Base color for unstyled text is light */
+      color: #f8f8f8;
     }
 
     /* Dark Overlay */
@@ -75,12 +75,35 @@
     /* --- Header Area --- */
     header {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px 20px 20px; /* Reduced bottom padding to fit search */
       font-size: 2.5em;
       font-weight: bold;
       color: #f1c40f; 
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
+    
+    /* --- Search Bar Styles --- */
+    #search-container {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    #searchInput {
+        width: 90%;
+        max-width: 600px;
+        padding: 12px 20px;
+        border: 2px solid #f1c40f;
+        border-radius: 8px;
+        font-size: 1.1em;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    #searchInput::placeholder {
+        color: #777;
+    }
+
 
     /* --- Layout Container --- */
     .container {
@@ -88,14 +111,14 @@
       max-width: 900px;
       margin: 20px auto;
       min-height: 60vh;
-      padding-top: 20px; /* Added padding since boxes are gone */
+      padding-top: 20px;
     }
 
     /* --- Page/Tab Content logic --- */
     .page-content {
       display: none; 
       animation: fadeIn 0.5s;
-      padding: 0 10px; /* Add slight padding for content against edges */
+      padding: 0 10px;
     }
 
     .page-content.active-page {
@@ -108,7 +131,6 @@
     }
 
     /* --- CONTENT STYLES (No Box) --- */
-    /* Headers are light yellow */
     .page-content h2 {
       margin-top: 0;
       color: #f1c40f; 
@@ -128,7 +150,6 @@
       font-size: 1.2em;
     }
 
-    /* Links are bright blue for contrast */
     a {
       color: #3498db; 
       font-weight: bold;
@@ -159,10 +180,12 @@
         font-size: 14px;
         padding: 12px 10px;
       }
+      #searchInput {
+        font-size: 1em;
+      }
     }
 
     /* --- Footer Styles --- */
-    /* Removed HR tag */
     footer {
       text-align: center;
       padding: 20px;
@@ -170,7 +193,7 @@
       color: #f1c40f;
       font-size: 0.9em;
       width: 100%;
-      margin-top: 50px; /* Added spacing above footer */
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -188,6 +211,10 @@
   <header id="main-header">
     Aloha Voyix Hub
   </header>
+  
+  <div id="search-container">
+    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search drivers or software..." title="Type in a name">
+  </div>
 
   <div class="container">
 
@@ -258,6 +285,9 @@
     function openPage(pageName) {
       window.location.hash = pageName;
       showPage(pageName);
+      // Clear search and reset filtering whenever a tab is clicked
+      document.getElementById('searchInput').value = '';
+      filterContent(); 
     }
     
     function showPage(pageName) {
@@ -287,6 +317,33 @@
       if (targetButton) {
         targetButton.className += " active";
       }
+    }
+    
+    // NEW FUNCTION: Live content filter
+    function filterContent() {
+      // Get the current search input and convert to lowercase
+      let input = document.getElementById('searchInput');
+      let filter = input.value.toLowerCase();
+      
+      // Get the currently active page (only search on the page the user is viewing)
+      let activePage = document.querySelector('.page-content.active-page');
+      
+      if (!activePage) return; // Exit if no page is active
+
+      // Search all list items on the active page
+      let li = activePage.getElementsByTagName('li');
+      
+      for (let i = 0; i < li.length; i++) {
+        let text = li[i].textContent || li[i].innerText;
+        
+        if (text.toLowerCase().indexOf(filter) > -1) {
+          li[i].style.display = ""; // Show item
+        } else {
+          li[i].style.display = "none"; // Hide item
+        }
+      }
+      
+      // Since the Home page has no list items, we don't need to do anything there.
     }
 
     // Function to handle initial load and URL changes
