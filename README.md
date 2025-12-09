@@ -2,7 +2,7 @@
 # ASK BEFORE SHARING
 # Please feel free to visit my site 
 [here](https://alohavoyix.github.io/Alohasoftware)
-[Capture.png](https://postimg.cc/mz8GDTbS)
+[![Capture.png](https://i.postimg.cc/5y3JpSwF/Capture.png)](https://postimg.cc/m1tKgMpb)
 
 ![License: Restricted](https://img.shields.io/badge/License-Restricted-red.svg)
 ![Sharing: Prohibited](https://img.shields.io/badge/Sharing-Prohibited-darkred.svg)
